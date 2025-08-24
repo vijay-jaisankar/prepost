@@ -1,6 +1,5 @@
-"""Utility functions to use the OPenAI API"""
+"""Utility functions to use the OpenAI API"""
 
-import base64
 import os
 
 # Load env variables
@@ -8,13 +7,6 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv(dotenv_path="../.env")
-
-
-def encode_image_base64(image_path):
-    """Encode image into a base64 string"""
-    with open(image_path, "rb") as image_file:
-        encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
-        return encoded_image
 
 
 class OpenAIClient:
@@ -26,14 +18,13 @@ class OpenAIClient:
         self.model_name = os.environ.get("OPENAI_MODEL_NAME")
         self.openai_client = OpenAI(api_key=self.api_key)
 
-    def get_model_response(self, text_prompt, image_path=None, max_tokens=256):
+    def get_model_response(self, text_prompt, base64_image=None, max_tokens=256):
         """Get model response for a text prompt and (optionally) an image"""
         # Process text prompt
         content = [{"type": "input_text", "text": text_prompt}]
 
         # Process input image if supplied by the user
-        if image_path is not None:
-            base64_image = encode_image_base64(image_path=image_path)
+        if base64_image is not None:
             content.append(
                 {
                     "type": "input_image",
