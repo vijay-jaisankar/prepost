@@ -30,9 +30,9 @@ common_image_features = [
 few_shot_prompt = base_prompt
 few_shot_prompt += "For your reference, here are some common items to look for:"
 for image_feature in common_image_features:
-    few_shot_prompt += f"{image_feature} "
+    few_shot_prompt += f"{image_feature}, "
 few_shot_prompt += "If you are not sure about specific location, you MUST give a couple of possible street candidates (street, city, state) without asking any further questions for more details."
 
 # Prompts to be exported
-BASE_PROMPT = base_prompt
-FEW_SHOT_PROMPT = few_shot_prompt
+BASE_LOCATION_PROMPT = base_prompt
+FEW_SHOT_LOCATION_PROMPT = few_shot_prompt

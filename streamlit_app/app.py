@@ -13,8 +13,16 @@ import streamlit as st
 from api.aimlapi_utils import AIMLAPIClient
 from api.ollamaapi_utils import OllamaClient
 from api.openai_utils import OpenAIClient
+from prompts.caption_prompt import (IMAGE_CAPTIONS_RAW_PROMPT,
+                                    IMAGE_TOPIC_DESCRIPTOR_PROMPT)
+from prompts.location_prompt import (BASE_LOCATION_PROMPT,
+                                     FEW_SHOT_LOCATION_PROMPT)
 
 st.title("Image Uploader and Viewer")
+st.text_area(BASE_LOCATION_PROMPT)
+st.text_area(FEW_SHOT_LOCATION_PROMPT)
+st.text_area(IMAGE_TOPIC_DESCRIPTOR_PROMPT)
+st.text_area(IMAGE_CAPTIONS_RAW_PROMPT)
 
 uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
 
