@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv(dotenv_path="../.env")
 
-from openai_utils import encode_image_base64
+from .openai_utils import encode_image_base64
 
 
 class OllamaClient:
