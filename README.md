@@ -4,6 +4,8 @@
 
 Explore tips to shield your post from attackers, and exciting captions for your post! We leverage state-of-the-art models like [GPT-5](https://aimlapi.com/models/gpt-5) to help you **plan before you post**.  
 
+Demo Video: [YouTube](https://www.youtube.com/watch?v=LYOtNX45sPc)
+
 ## Main Features
 - Checks and flagging for possibly location-revealing clues in an uploaded image intended for Social media uploads
 - Suggestions for cool and targeted captions for the corresponding social media posts.
@@ -25,4 +27,4 @@ streamlit run app.py
 ```
 
 ---
-Submitted to the Co-Creating with GPT-5 hackathon
+Submitted to the Co-Creating with GPT-5 hackathon. Project Page: [Lablab.ai](https://lablab.ai/event/co-creating-with-gpt-5/prepost/prepost)
