@@ -1,6 +1,7 @@
 """Streamlit app to host the functionalities of PrePost."""
 
 import os
+
 # Set system path
 import sys
 
@@ -14,10 +15,11 @@ from openai import RateLimitError
 from api.aimlapi_utils import AIMLAPIClient
 from api.ollamaapi_utils import OllamaClient
 from api.openai_utils import OpenAIClient
-from prompts.caption_prompt import (IMAGE_CAPTIONS_RAW_PROMPT,
-                                    IMAGE_TOPIC_DESCRIPTOR_PROMPT)
-from prompts.location_prompt import (BASE_LOCATION_PROMPT,
-                                     FEW_SHOT_LOCATION_PROMPT)
+from prompts.caption_prompt import (
+    IMAGE_CAPTIONS_RAW_PROMPT,
+    IMAGE_TOPIC_DESCRIPTOR_PROMPT,
+)
+from prompts.location_prompt import BASE_LOCATION_PROMPT, FEW_SHOT_LOCATION_PROMPT
 
 # Set up Clients
 aiml_api_client = AIMLAPIClient()
