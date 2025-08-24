@@ -3,6 +3,7 @@
 import os
 
 import requests
+
 # Load env variables
 from dotenv import load_dotenv
 
@@ -46,6 +47,5 @@ class AIMLAPIClient:
 
         # Extract model response
         api_response = response.json()
-        model_response = api_response["message"]["content"]
 
-        return model_response
+        return api_response
