@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 
 load_dotenv(dotenv_path="../.env")
 
+
 def encode_image_base64(image_path):
     """Encode image into a base64 string"""
     with open(image_path, "rb") as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
         return encoded_image
-
 
 
 class OpenAIClient:
@@ -34,16 +34,17 @@ class OpenAIClient:
         # Process input image if supplied by the user
         if image_path is not None:
             base64_image = encode_image_base64(image_path=image_path)
-            content.append({
-                "type": "input_image",
-                "image_url": f"data:image/jpeg;base64,{base64_image}",
-
-            })
+            content.append(
+                {
+                    "type": "input_image",
+                    "image_url": f"data:image/jpeg;base64,{base64_image}",
+                }
+            )
 
         # Send request
         response = self.openai_client.responses.create(
-            model = self.model_name,
-            input = [
+            model=self.model_name,
+            input=[
                 {
                     "role": "user",
                     "content": content,
