@@ -3,7 +3,6 @@
 import os
 
 import requests
-
 # Load env variables
 from dotenv import load_dotenv
 
