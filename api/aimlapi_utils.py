@@ -19,7 +19,7 @@ class AIMLAPIClient:
         self.model_name = os.environ.get("AIML_MODEL_NAME")
         self.api_url = "https://api.aimlapi.com/v1/chat/completions"
 
-    def get_model_response(self, text_prompt, max_tokens=256, temperature=0.2, seed=42):
+    def get_model_response(self, text_prompt, max_tokens=256):
         """Get model response for a text prompt"""
         # Construct request headers
         headers = {
@@ -38,8 +38,6 @@ class AIMLAPIClient:
                     "role": "user",
                     "content": content,
                     "max_tokens": max_tokens,
-                    "temperature": temperature,
-                    "seed": seed,
                 }
             ],
         }
