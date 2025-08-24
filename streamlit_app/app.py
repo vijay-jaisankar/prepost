@@ -1,7 +1,6 @@
 """Streamlit app to host the functionalities of PrePost."""
 
 import os
-
 # Set system path
 import sys
 
@@ -15,18 +14,22 @@ from openai import RateLimitError
 from api.aimlapi_utils import AIMLAPIClient
 from api.ollamaapi_utils import OllamaClient
 from api.openai_utils import OpenAIClient
-from prompts.caption_prompt import (
-    IMAGE_CAPTIONS_RAW_PROMPT,
-    IMAGE_TOPIC_DESCRIPTOR_PROMPT,
-)
-from prompts.location_prompt import BASE_LOCATION_PROMPT, FEW_SHOT_LOCATION_PROMPT
+from prompts.caption_prompt import (IMAGE_CAPTIONS_RAW_PROMPT,
+                                    IMAGE_TOPIC_DESCRIPTOR_PROMPT)
+from prompts.location_prompt import (BASE_LOCATION_PROMPT,
+                                     FEW_SHOT_LOCATION_PROMPT)
 
 # Set up Clients
 aiml_api_client = AIMLAPIClient()
 ollama_api_client = OllamaClient()
 openai_api_client = OpenAIClient()
 
-st.title("PrePost Pipeline")
+# Background image
+st.image("../static/prepost_logo.png")
+st.markdown(
+    "# PrePost: Explore tips to shield your post from attackers, and exciting captions for your post!"
+)
+
 uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
@@ -38,7 +41,7 @@ if uploaded_file is not None:
     # Step 1: Get location information
     try:
         location_information = openai_api_client.get_model_response(
-            text_prompt=BASE_LOCATION_PROMPT, base64_image=base64_encoded
+            text_prompt=FEW_SHOT_LOCATION_PROMPT, base64_image=base64_encoded
         )
         print(location_information)
     except RateLimitError as e:
@@ -51,6 +54,7 @@ if uploaded_file is not None:
             )
         )
     )
+
     if "location_cues" in location_information:
         st.markdown("## Location cues identified in the image")
         for clue in location_information["location_cues"]:
@@ -68,9 +72,15 @@ if uploaded_file is not None:
 
     # Step 3: Get captions
     captions_prompt_annotated = f"{IMAGE_CAPTIONS_RAW_PROMPT}: {topic_information}"
-    captions_information = aiml_api_client.get_model_response(
-        text_prompt=captions_prompt_annotated
-    )
-    # captions_information = ollama_api_client.get_model_response(text_prompt=captions_prompt_annotated)
+    try:
+        captions_information = aiml_api_client.get_model_response(
+            text_prompt=captions_prompt_annotated
+        )
+    except Exception as e:
+        print(f"Rate limit exceeded: {e}")
+        captions_information = ollama_api_client.get_model_response(
+            text_prompt=captions_prompt_annotated
+        )
+
     st.markdown("## Sample captions for your post!")
     st.text(dict(captions_information)["choices"][0]["message"]["content"])
