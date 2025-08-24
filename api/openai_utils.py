@@ -1,11 +1,11 @@
 """Utility functions to use the OPenAI API"""
 
-import os
 import base64
-from openai import OpenAI
+import os
 
 # Load env variables
 from dotenv import load_dotenv
+from openai import OpenAI
 
 load_dotenv(dotenv_path="../.env")
 
