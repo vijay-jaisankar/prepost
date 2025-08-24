@@ -4,9 +4,11 @@ import os
 # Set system path
 import sys
 
-import streamlit as st
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import base64
+
+import streamlit as st
 
 from api.aimlapi_utils import AIMLAPIClient
 from api.ollamaapi_utils import OllamaClient
@@ -17,7 +19,14 @@ st.title("Image Uploader and Viewer")
 uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-    st.write("Image successfully uploaded and displayed!")
-else:
-    st.write("Please upload an image file.")
+    # 2. Read the file as bytes
+    file_bytes = uploaded_file.read()
+
+    # 3. Convert to base64
+    base64_encoded = base64.b64encode(file_bytes).decode("utf-8")
+
+    # 4. Display base64 string (or use it elsewhere)
+    st.text_area("Base64 Encoded Image", base64_encoded, height=200)
+
+    # Optional: Show the image
+    st.image(file_bytes, caption="Uploaded Image", use_column_width=True)
